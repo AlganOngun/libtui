@@ -6,7 +6,7 @@
 
 buf* buf_create(int row, int column) {
   char* b = malloc(row * column);
-  buf* buffer = malloc(sizeof(b) + sizeof(int) * 2);
+  buf* buffer = malloc((row * column) + sizeof(int) * 2);
 
   buffer->buf = b;
   buffer->rows = row;
@@ -37,10 +37,41 @@ void buf_set_row(buf* buf, const char* row, int row_index) {
 
   for (size_t y = 0; y < buf->rows; ++y) {
     for (size_t x = 0; x < buf->columns; ++x) {
-      int i = x + y;
+      const int i = buf->columns * y + x;
       buf->buf[i] = row[x];
     }
   }
+}
+
+void buf_set(buf* buf, const char c, int x, int y) {
+  if (x < 0) {
+    fprintf(
+        stderr, "Error in buf_set: x %d, is smaller than 0. x and y should be bigger than 0", x);
+    exit(EXIT_FAILURE);
+  }
+  if (y < 0) {
+    fprintf(stderr, "Error in buf_set: y %d, is smaller than 0. x and y must be bigger than 0", x);
+    exit(EXIT_FAILURE);
+  }
+  if (x >= buf->columns) {
+    fprintf(stderr,
+            "Error in buf_set: x %d, is invalid. x %d must be smaller than buf->columns %d",
+            x,
+            x,
+            buf->columns);
+    exit(EXIT_FAILURE);
+  }
+  if (y >= buf->rows) {
+    fprintf(stderr,
+            "Error in buf_set: y %d, is invalid. y %d must be smaller than buf->rows %d",
+            y,
+            y,
+            buf->rows);
+    exit(EXIT_FAILURE);
+  }
+
+  const int i = buf->columns * y + x;
+  buf->buf[i] = c;
 }
 
 void buf_free(buf* buf) {

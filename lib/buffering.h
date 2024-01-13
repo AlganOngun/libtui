@@ -20,6 +20,10 @@ buf* buf_create(int row, int column);
 // Safe to use will terminate the program with an error
 void buf_set_row(buf* buf, const char* row, int row_index);
 
+// Sets the char at a specific location
+// The origin is top-left
+void buf_set(buf* buf, const char c, int x, int y);
+
 // Frees the buf and the buffer inside it
 // Must be called by client
 void buf_free(buf* buf);
