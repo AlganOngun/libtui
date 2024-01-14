@@ -15,6 +15,6 @@ void libtui_error_throw(libtui_error e);
 
 // Throws an error to STDERR and terminates the program if condition is true
 // If conditon is false does nothing and returns
-void libtui_error_throw_condition(bool condition, libtui_error e);
+void libtui_error_assert(bool condition, libtui_error e);
 
 #endif

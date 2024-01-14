@@ -12,7 +12,7 @@ void libtui_error_throw(const libtui_error e) {
   exit(EXIT_FAILURE);
 }
 
-void libtui_error_throw_condition(bool condition, const libtui_error e) {
+void libtui_error_assert(bool condition, const libtui_error e) {
   if (condition == false) return;
 
   libtui_error_throw(e);
