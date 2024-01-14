@@ -7,13 +7,18 @@
 #include "libtui_error.h"
 
 buf* buf_create(size_t row, size_t column) {
-  char* b = malloc(row * column);
-  buf* buffer = malloc((row * column) + sizeof(size_t) * 2);
+  buf* buffer = malloc(sizeof(buf));
+  libtui_error_throw_condition(
+      buffer == NULL,
+      libtui_error_create("Error buf_create: couldn't allocate buf* buffer. Malloc Failed!"));
 
-  buffer->buf = b;
+  buffer->buf = malloc(row * column);
+  libtui_error_throw_condition(
+      buffer->buf == NULL,
+      libtui_error_create("Error buf_create: couldn't allocate char* buffer->buf. Malloc Failed!"));
+
   buffer->rows = row;
   buffer->columns = column;
-
   return buffer;
 }
 
@@ -57,6 +62,10 @@ char buf_get(const buf* buf, size_t x, size_t y) {
 }
 
 void buf_free(buf* buf) {
+  libtui_error_throw_condition(
+      buf == NULL,
+      libtui_error_create(
+          "Error buf_free: Can't free a null buf* buf, please try to free a valid buf"));
   free(buf->buf);
   free(buf);
 }

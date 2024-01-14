@@ -34,6 +34,12 @@ pub fn build(b: *std.Build) void {
         },
         .flags = &.{"-std=c99"},
     });
+    lib.addCSourceFile(.{
+        .file = .{
+            .path = "lib/libtui_renderer.c",
+        },
+        .flags = &.{"-std=c99"},
+    });
 
     targets.append(lib) catch @panic("OOM");
 

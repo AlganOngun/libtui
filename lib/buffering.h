@@ -5,11 +5,12 @@
 
 // A struct that represents a 2D buffer.
 // Create one with buf_create(row, column) function.
+// buf owns the char* buf and will free it when buf_free is called
 // Client must free the buf with buf_free.
 typedef struct {
+  char* buf;  // Owned by buf
   size_t rows;
   size_t columns;
-  char* buf;
 } buf;
 
 // Allocates and returns owned pointer to the buf struct.
@@ -38,6 +39,7 @@ char buf_get(const buf* buf, size_t x, size_t y);
 
 // Frees the buf and the buffer inside it.
 // Must be called by client.
+// Dont't use any pointers to the buf neither the char* buf inside it.
 void buf_free(buf* buf);
 
 #endif
