@@ -1,5 +1,6 @@
-#include <libtui.h>
 #include <stdio.h>
+
+#include "../lib/libtui.h"
 
 int main(int argc, char* argv[]) {
   buf* screen_buf = buf_create(5, 10);
