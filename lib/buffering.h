@@ -15,7 +15,7 @@ typedef struct {
 
 // Allocates and returns owned pointer to the buf struct.
 // Client must free the buf using void "buf_free(buf* buf)".
-buf* buf_create(size_t row, size_t column);
+buf* buf_create(size_t column, size_t row);
 
 // Maps (x, y) 2D coordinate to one dimensional buf index.
 // End user should'nt bother with indexes directly using this function.

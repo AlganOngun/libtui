@@ -8,6 +8,8 @@
 // Client must free an instance using libtui_renderer_free.
 typedef struct {
   buf* b;  // Owned and will be freed together with libtui_renderer at libtui_renderer_free.
+  size_t rows;
+  size_t columns;
 } libtui_renderer;
 
 // Creates a new libtui_renderer.
@@ -15,6 +17,9 @@ typedef struct {
 // Created libtui_renderer will allocate a buf* b and will handle it.
 // Client must free the libtui_renderer with libtui_renderer_free.
 libtui_renderer* libtui_renderer_create(size_t width, size_t height);
+
+// Renders the final buffer to the screen
+void libtui_renderer_render(libtui_renderer* renderer);
 
 // Frees the renderer and the buf* b inside.
 // After calling this, don't use any pointer to the buf or the char* inside because they will be
