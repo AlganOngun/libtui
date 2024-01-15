@@ -1,6 +1,6 @@
 #include "libtui_draw.h"
 
-#include "buffering.h"
+#include "libtui_buffering.h"
 
 void libtui_draw_clear_with(libtui_renderer* renderer, const char c) {
   for (size_t y = 0; y < renderer->rows; ++y) {

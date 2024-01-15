@@ -18,19 +18,13 @@ pub fn build(b: *std.Build) void {
     lib.linkLibC();
     lib.addCSourceFile(.{
         .file = .{
-            .path = "lib/buffering.c",
+            .path = "lib/libtui_buffering.c",
         },
         .flags = &.{"-std=c99"},
     });
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_error.c",
-        },
-        .flags = &.{"-std=c99"},
-    });
-    lib.addCSourceFile(.{
-        .file = .{
-            .path = "lib/buf_errs.c",
         },
         .flags = &.{"-std=c99"},
     });
@@ -43,6 +37,12 @@ pub fn build(b: *std.Build) void {
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_draw.c",
+        },
+        .flags = &.{"-std=c99"},
+    });
+    lib.addCSourceFile(.{
+        .file = .{
+            .path = "lib/libtui_keyboard.c",
         },
         .flags = &.{"-std=c99"},
     });

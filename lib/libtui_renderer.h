@@ -1,7 +1,7 @@
 #ifndef LIBTUI_RENDERER_H
 #define LIBTUI_RENDERER_H
 
-#include "buffering.h"
+#include "libtui_buffering.h"
 
 // Struct that holds data used by rendering functionality..
 // Sole owner of the buf* b.

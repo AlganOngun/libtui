@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "buffering.h"
+#include "libtui_buffering.h"
 #include "libtui_draw.h"
 #include "libtui_error.h"
 
