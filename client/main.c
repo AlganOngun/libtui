@@ -9,27 +9,25 @@ int main(int argc, char* argv[]) {
 
   libtui_draw_clear_with(r, '_');
 
-  libtui_keyboard kb = libtui_keyboard_init();
-
   size_t x = 0;
   size_t y = 0;
-  libtui_draw_single_char(r, 'X', x, y);
-  libtui_renderer_render(r);
   while (1) {
-    LIBTUI_KEYCODE key = libtui_keyboard_get_key();
-    if (key == KEY_J) {
-      ++y;
-    } else if (key == KEY_K) {
-      --y;
-    } else if (key == KEY_H) {
-      --x;
-    } else if (key == KEY_L) {
-      ++x;
+    if (libtui_keyboard_is_kb_hit()) {
+      LIBTUI_KEYCODE key = libtui_keyboard_get_key();
+      if (key == KEY_J) {
+        ++y;
+      } else if (key == KEY_K) {
+        --y;
+      } else if (key == KEY_H) {
+        --x;
+      } else if (key == KEY_L) {
+        ++x;
+      }
     }
-    libtui_draw_single_char(r, 'X', x, y);
+    libtui_draw_single_char(r, 'Y', x, y);
     libtui_renderer_render(r);
+    sleep(0.1);
   }
-  libtui_keyboard_deinit(kb);
 
   libtui_renderer_free(r);
 

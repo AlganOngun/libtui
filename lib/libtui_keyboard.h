@@ -81,32 +81,10 @@ typedef enum {
   KEY_DEL = 127,          // Delete
 } LIBTUI_KEYCODE;
 
-// Simple: A struct that is used by keyboard input functions.
-// ===========================================================================.
-// Detailed: The struct used to store termios fields related to keyboard input.
-typedef struct {
-  struct termios original_term;
-  struct termios new_term;
-} libtui_keyboard;
-
-// Simple:
-// initializes all the things related to keyboard input and returns it.
-// ====================================================================.
-// Detailed:
-// Sets the termios using tcgetattr STDIN_FILENO.
-// Sets terminal flag ICANON.
-// Sets the stdin with the new settings (libtui_keyboard.new_term)
-libtui_keyboard libtui_keyboard_init();
+// Returns true if a key is pressed
+int libtui_keyboard_is_kb_hit();
 
 // Returns the key pressed
 LIBTUI_KEYCODE libtui_keyboard_get_key();
-
-// Simple:
-// Always run this function after your input work.
-// Not running this function might cause undefined behaviour.
-// ==========================================================.
-// Detailed:
-// Restores the old termios setting
-void libtui_keyboard_deinit(libtui_keyboard keyboard);
 
 #endif

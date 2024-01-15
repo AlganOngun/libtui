@@ -1,25 +1,34 @@
 #include "libtui_keyboard.h"
 
 #include <stdio.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
 
-libtui_keyboard libtui_keyboard_init() {
-  static struct termios oldt, newt;
+int libtui_keyboard_is_kb_hit() {
+  static bool initialized = false;
 
-  tcgetattr(STDIN_FILENO, &oldt);
-  newt = oldt;
+  if (!initialized) {
+    struct termios term;
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~ICANON;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+    setbuf(stdin, NULL);
+    initialized = true;
+  }
 
-  newt.c_lflag &= ~(ICANON);
-
-  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
-  libtui_keyboard keyboard = {.new_term = newt, .original_term = oldt};
-  return keyboard;
+  int bytesWaiting;
+  ioctl(STDIN_FILENO, FIONREAD, &bytesWaiting);
+  return bytesWaiting;
 }
 
 LIBTUI_KEYCODE libtui_keyboard_get_key() {
-  return getchar();
-}
-
-void libtui_keyboard_deinit(libtui_keyboard keyboard) {
-  tcsetattr(STDIN_FILENO, TCSANOW, &keyboard.original_term);
+  struct termios oldattr, newattr;
+  char ch;
+  tcgetattr(STDIN_FILENO, &oldattr);
+  newattr = oldattr;
+  newattr.c_lflag &= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
+  ch = getchar();
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
+  return ch;
 }
