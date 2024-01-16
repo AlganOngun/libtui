@@ -82,9 +82,9 @@ typedef enum {
 } LIBTUI_KEYCODE;
 
 // Returns true if a key is pressed
-int libtui_keyboard_is_kb_hit();
+int libtui_keyboard_is_kb_hit(void);
 
 // Returns the key pressed
-LIBTUI_KEYCODE libtui_keyboard_get_key();
+LIBTUI_KEYCODE libtui_keyboard_get_key(void);
 
 #endif

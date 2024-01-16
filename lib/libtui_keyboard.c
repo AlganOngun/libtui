@@ -4,13 +4,13 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 
-int libtui_keyboard_is_kb_hit() {
+int libtui_keyboard_is_kb_hit(void) {
   static bool initialized = false;
 
   if (!initialized) {
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);
-    term.c_lflag &= ~ICANON;
+    term.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
     setbuf(stdin, NULL);
     initialized = true;
@@ -21,7 +21,7 @@ int libtui_keyboard_is_kb_hit() {
   return bytesWaiting;
 }
 
-LIBTUI_KEYCODE libtui_keyboard_get_key() {
+LIBTUI_KEYCODE libtui_keyboard_get_key(void) {
   struct termios oldattr, newattr;
   char ch;
   tcgetattr(STDIN_FILENO, &oldattr);

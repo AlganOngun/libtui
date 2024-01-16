@@ -15,38 +15,68 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    var flags = &.{
+        "-std=c99",
+        "-Wextra",
+        "-Wall",
+        "-Wfloat-equal",
+        "-Wundef",
+        "-Wshadow",
+        "-Wpointer-arith",
+        "-Wcast-align",
+        "-Wstrict-prototypes",
+        "-Wstrict-prototypes",
+        "-Wwrite-strings",
+        "-Waggregate-return",
+        "-Wcast-qual",
+        "-Werror",
+        "-Winit-self",
+        "-Wno-error=unused-command-line-argument",
+        "-O1",
+        "-fsanitize-address-use-after-scope",
+        "-fsanitize-address-use-odr-indicator",
+        "-fsanitize-memory-use-after-dtor",
+        "-fno-omit-frame-pointer",
+        "-fstack-protector-strong",
+    };
+
     lib.linkLibC();
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_buffering.c",
         },
-        .flags = &.{"-std=c99"},
+        .flags = flags,
     });
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_error.c",
         },
-        .flags = &.{"-std=c99"},
+        .flags = flags,
     });
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_renderer.c",
         },
-        .flags = &.{"-std=c99"},
+        .flags = flags,
     });
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_draw.c",
         },
-        .flags = &.{"-std=c99"},
+        .flags = flags,
     });
     lib.addCSourceFile(.{
         .file = .{
             .path = "lib/libtui_keyboard.c",
         },
-        .flags = &.{"-std=c99"},
+        .flags = flags,
     });
-
+    lib.addCSourceFile(.{
+        .file = .{
+            .path = "lib/libtui_term_control.c",
+        },
+        .flags = flags,
+    });
     targets.append(lib) catch @panic("OOM");
 
     const client_exe = b.addExecutable(.{

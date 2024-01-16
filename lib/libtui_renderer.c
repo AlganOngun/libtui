@@ -22,9 +22,7 @@ libtui_renderer* libtui_renderer_create(size_t width, size_t height) {
 }
 
 void libtui_renderer_render(libtui_renderer* renderer) {
-  printf("\e[1;1H\e[2J");
-  fflush(stdout);
-  printf("%s", renderer->b->buf);
+  printf("\e[?25l\033[0;0H%s", renderer->b->buf);
   fflush(stdout);
   libtui_draw_clear_with(renderer, '_');
 }
