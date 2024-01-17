@@ -4,11 +4,11 @@
 #include <stdbool.h>
 
 typedef struct {
-  const char* msg;
+	const char *msg;
 } libtui_error;
 
 // Creates an libtui_error from string literal
-libtui_error libtui_error_create(const char* msg);
+libtui_error libtui_error_create(const char *msg);
 
 // Throws an error to STDERR and terminates the program.
 void libtui_error_throw(libtui_error e);

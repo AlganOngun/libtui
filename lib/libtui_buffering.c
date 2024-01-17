@@ -2,52 +2,99 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include "libtui.h"
-#include "libtui_error.h"
+#include "libtui_buffering_errs.h"
 
-buf* buf_create(size_t column, size_t row) {
-  buf* buffer = malloc(sizeof(buf));
-  libtui_error_assert(
-      buffer == NULL,
-      libtui_error_create("Error buf_create: couldn't allocate buf* buffer. Malloc Failed!"));
+#define FAIL_WITH_ERR(label, result, err_code) \
+	*(result) = (err_code);                \
+	goto label;
 
-  buffer->buf = malloc(row * (column + 1));
-  libtui_error_assert(
-      buffer->buf == NULL,
-      libtui_error_create("Error buf_create: couldn't allocate char* buffer->buf. Malloc Failed!"));
+struct libtui_buffer *buf_create(size_t column, size_t row,
+				 enum LIBTUI_BUFFERING_ERR *result)
+{
+	struct libtui_buffer *buffer = malloc(sizeof(*buffer));
+	if (buffer == NULL)
+		FAIL_WITH_ERR(fatal_error, result,
+			      BUFFERING_ERROR_MALLOC_FAILED)
 
-  buffer->rows = row;
-  buffer->columns = column + 1;
+	buffer->buf = malloc(row * (column + 1));
+	if (buffer->buf == NULL)
+		FAIL_WITH_ERR(fatal_error, result,
+			      BUFFERING_ERROR_MALLOC_FAILED)
 
-  for (size_t y = 0; y < row; ++y) {
-    const size_t i = buf_map_i(buffer, column, y);
-    buffer->buf[i] = '\n';
-  }
+	buffer->rows = row;
+	buffer->columns = column + 1;
 
-  return buffer;
+	for (size_t y = 0; y < row; ++y) {
+		const size_t i = libtui_buffer_get_index(buffer, column, y);
+		buffer->buf[i] = '\n';
+	}
+
+	*result = BUFFERING_ERROR_OK;
+	return buffer;
+
+fatal_error:
+	return NULL;
 }
 
-size_t buf_map_i(const buf* buf, size_t x, size_t y) {
-  return buf->columns * y + x;
+size_t libtui_buffer_get_index(const struct libtui_buffer *buf, size_t x,
+			       size_t y, enum LIBTUI_BUFFERING_ERR *result)
+{
+	if (buf == NULL)
+		FAIL_WITH_ERR(fatal_error, result, BUFFERING_ERROR_NULL_BUF)
+	if (x >= buf->columns || y >= buf->rows)
+		FAIL_WITH_ERR(fatal_error, result,
+			      BUFFERING_ERROR_INVALID_DIMENSION)
+
+	*result = BUFFERING_ERROR_OK;
+	return buf->columns * y + x;
+
+fatal_error:
+	return 0;
 }
 
-void buf_set(buf* buf, const char c, size_t x, size_t y) {
-  const size_t i = buf_map_i(buf, x, y);
-  buf->buf[i] = c;
+enum LIBTUI_BUFFERING_ERR libtui_buffer_set(struct libtui_buffer *buf,
+					    const char c, size_t x, size_t y)
+{
+	if (buf == NULL)
+		return BUFFERING_ERROR_NULL_BUF;
+	if (buf->buf == NULL)
+		return BUFFERING_ERROR_NULL_BUF_BUFFER;
+
+	const size_t i = libtui_buffer_get_index(buf, x, y);
+	buf->buf[i] = c;
+	return BUFFERING_ERROR_OK;
 }
 
-char buf_get(const buf* buf, size_t x, size_t y) {
-  const size_t i = buf_map_i(buf, x, y);
-  return buf->buf[i];
+char libtui_buffer_get(const struct libtui_buffer *buf, size_t x, size_t y,
+		       enum LIBTUI_BUFFERING_ERR *result)
+{
+	if (buf == NULL)
+		FAIL_WITH_ERR(fatal_error, result, BUFFERING_ERROR_NULL_BUF)
+	if (buf->buf == NULL)
+		FAIL_WITH_ERR(fatal_error, result,
+			      BUFFERING_ERROR_NULL_BUF_BUFFER)
+	if (x >= buf->columns || y >= buf->rows)
+		FAIL_WITH_ERR(fatal_error, result,
+			      BUFFERING_ERROR_INVALID_DIMENSION)
+
+	*result = BUFFERING_ERROR_OK;
+	const size_t i = libtui_buffer_get_index(buf, x, y);
+	return buf->buf[i];
+
+fatal_error:
+	return '\0';
 }
 
-void buf_free(buf* buf) {
-  libtui_error_assert(
-      buf == NULL,
-      libtui_error_create(
-          "Error buf_free: Can't free a null buf* buf, please try to free a valid buf"));
-  free(buf->buf);
-  free(buf);
+enum LIBTUI_BUFFERING_ERR libtui_buffer_free(struct libtui_buffer *buf)
+{
+	if (buf == NULL)
+		return BUFFERING_ERROR_NULL_BUF;
+
+	if (buf->buf == NULL)
+		return BUFFERING_ERROR_NULL_BUF_BUFFER;
+
+	free(buf->buf);
+	free(buf);
+	return BUFFERING_ERROR_OK;
 }
