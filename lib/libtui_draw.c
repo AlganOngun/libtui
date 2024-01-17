@@ -2,12 +2,17 @@
 #include "libtui_renderer.h"
 
 #include "libtui_buffering.h"
+#include "libtui_buffering_errs.h"
 
 void libtui_draw_clear_with_char(struct libtui_renderer *renderer, const char c)
 {
 	for (size_t y = 0; y < renderer->rows; ++y) {
 		for (size_t x = 0; x < renderer->columns; ++x) {
-			libtui_buffer_set(renderer->buf, c, x, y);
+			if (libtui_buffer_set(renderer->buf, c, x, y) !=
+			    BUFFERING_ERROR_OK) {
+				// Print an error message to stderr and exit the program.
+				exit(-10);
+			}
 		}
 	}
 }

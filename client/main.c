@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-	struct libtui_renderer *r = libtui_renderer_create(80, 30);
+	struct libtui_renderer *r = libtui_renderer_create(50, 22);
 
 	libtui_draw_clear_with_char(r, '_');
 
