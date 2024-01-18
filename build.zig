@@ -43,13 +43,7 @@ pub fn build(b: *std.Build) void {
     lib.linkLibC();
     lib.addCSourceFile(.{
         .file = .{
-            .path = "lib/libtui_buffering.c",
-        },
-        .flags = flags,
-    });
-    lib.addCSourceFile(.{
-        .file = .{
-            .path = "lib/libtui_error.c",
+            .path = "lib/libtui_buffer.c",
         },
         .flags = flags,
     });

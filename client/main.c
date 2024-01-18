@@ -6,9 +6,17 @@
 
 int main(int argc, char *argv[])
 {
-	struct libtui_renderer *r = libtui_renderer_create(50, 22);
+	enum LIBTUI_RENDERER_ERR renderer_creation_result;
+	struct libtui_renderer *r =
+		libtui_renderer_create(50, 22, &renderer_creation_result);
+	if (renderer_creation_result != RENDERER_ERROR_OK) {
+		fprintf(stderr, "Failed to create renderer, %s",
+			libtui_renderer_err_str(renderer_creation_result));
+		exit(-1);
+	}
 
-	libtui_draw_clear_with_char(r, '_');
+	enum LIBTUI_DRAW_ERR cc_res;
+	libtui_draw_clear_with_char(r, '_', &cc_res);
 
 	size_t x = 0;
 	size_t y = 0;
@@ -32,13 +40,17 @@ int main(int argc, char *argv[])
 				break;
 			}
 		}
-		libtui_draw_single_char(r, 'F', x, y);
-		libtui_renderer_render(r);
+
+		enum LIBTUI_DRAW_ERR d_res;
+		libtui_draw_single_char(r, 'F', x, y, &d_res);
+		enum LIBTUI_RENDERER_ERR r_res;
+		libtui_renderer_render(r, &r_res);
 	}
 
 	libtui_show_cursor();
 
-	libtui_renderer_free(r);
+	enum LIBTUI_RENDERER_ERR res;
+	libtui_renderer_free(r, &res);
 
 	return 0;
 }
