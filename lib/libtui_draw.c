@@ -10,85 +10,67 @@ const char *libtui_draw_err_str(enum LIBTUI_DRAW_ERR err)
 		"DRAW_ERROR_OK",
 		"DRAW_ERROR_NULL_RENDERER",
 		"DRAW_ERROR_INVALID_DIMENSIONS",
-		"DRAW_ERROR_BUFFER_SET_FAILED",
 	};
 
 	const char *err_str = NULL;
 
-	if (err >= RENDERER_ERROR_COUNT)
-		err_str = NULL;
+	if (err < RENDERER_ERROR_COUNT)
+		err_str = LIBTUI_DRAW_ERR_STR[err];
 
-	err_str = LIBTUI_DRAW_ERR_STR[err];
 	return err_str;
 }
 
-void libtui_draw_clear_with_char(struct libtui_renderer *renderer, const char c,
-				 enum LIBTUI_DRAW_ERR *result)
+#define RETURN_DEFER(err)       \
+	do {                    \
+		result = (err); \
+		goto defer;     \
+	} while (0);
+
+enum LIBTUI_DRAW_ERR
+libtui_draw_clear_with_char(struct libtui_renderer *renderer, const char c)
 {
-	// If function doesn't error check
-	enum LIBTUI_DRAW_ERR dummy_res;
-	if (result == NULL)
-		result = &dummy_res;
+	enum LIBTUI_DRAW_ERR result = DRAW_ERROR_OK;
+	if (renderer == NULL)
+		RETURN_DEFER(DRAW_ERROR_NULL_RENDERER);
 
-	if (renderer == NULL) {
-		*result = DRAW_ERROR_NULL_RENDERER;
-		goto out;
-	}
-
-	for (size_t y = 0; y < renderer->rows; ++y) {
-		for (size_t x = 0; x < renderer->columns; ++x) {
-			enum LIBTUI_BUFFER_ERR buffer_set_result;
-			libtui_buffer_set(renderer->buf, c, x, y,
-					  &buffer_set_result);
-
-			if (buffer_set_result != BUFFER_ERROR_OK) {
-				fprintf(stderr,
-					"Error draw_clear_with_char, libtui_buffer_set: Failed to set to buffer. ERROR_CODE: %s",
-					libtui_buffer_err_str(
-						buffer_set_result));
-
-				*result = DRAW_ERROR_BUFFER_SET_FAILED;
-				goto out;
+	{
+		for (size_t y = 0; y < renderer->rows; ++y) {
+			for (size_t x = 0; x < renderer->columns; ++x) {
+				libtui_buffer_set(renderer->buf, c, x, y);
 			}
 		}
 	}
 
-	*result = DRAW_ERROR_OK;
-
-out:
-	return;
+defer:
+	return result;
 }
 
-void libtui_draw_clear(struct libtui_renderer *renderer,
-		       enum LIBTUI_DRAW_ERR *result)
+enum LIBTUI_DRAW_ERR libtui_draw_clear(struct libtui_renderer *renderer)
 {
-	enum LIBTUI_DRAW_ERR draw_clear_with_char_result;
-	libtui_draw_clear_with_char(renderer, ' ',
-				    &draw_clear_with_char_result);
+	enum LIBTUI_DRAW_ERR result = DRAW_ERROR_OK;
 
-	*result = draw_clear_with_char_result;
-}
-
-void libtui_draw_single_char(struct libtui_renderer *renderer, const char c,
-			     size_t x, size_t y, enum LIBTUI_DRAW_ERR *result)
-{
-	// If function doesn't error check
-	enum LIBTUI_DRAW_ERR dummy_res;
-	if (result == NULL)
-		result = &dummy_res;
-
-	if (renderer == NULL) {
-		*result = DRAW_ERROR_NULL_RENDERER;
-		goto out;
+	{
+		result = libtui_draw_clear_with_char(renderer, ' ');
 	}
 
-	enum LIBTUI_BUFFER_ERR buffer_set_result;
-	libtui_buffer_set(renderer->buf, c, x, y, &buffer_set_result);
-	if (buffer_set_result != BUFFER_ERROR_OK)
-		*result = DRAW_ERROR_BUFFER_SET_FAILED;
+	return result;
+}
 
-	*result = DRAW_ERROR_OK;
+enum LIBTUI_DRAW_ERR libtui_draw_single_char(struct libtui_renderer *renderer,
+					     const char c, size_t x, size_t y)
+{
+	enum LIBTUI_DRAW_ERR result = DRAW_ERROR_OK;
+	if (renderer == NULL)
+		RETURN_DEFER(DRAW_ERROR_NULL_RENDERER);
+	if (x >= renderer->columns || y >= renderer->rows)
+		RETURN_DEFER(DRAW_ERROR_INVALID_DIMENSIONS);
+	if (x < 0 || y < 0)
+		RETURN_DEFER(DRAW_ERROR_INVALID_DIMENSIONS);
 
-out:
-	return;
+	{
+		libtui_buffer_set(renderer->buf, c, x, y);
+	}
+
+defer:
+	return result;
 }

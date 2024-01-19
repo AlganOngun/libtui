@@ -1,22 +1,39 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
 
 #include "../lib/libtui.h"
 
-int main(int argc, char *argv[])
+void cleanup()
 {
-	enum LIBTUI_RENDERER_ERR renderer_creation_result;
-	struct libtui_renderer *r =
-		libtui_renderer_create(50, 22, &renderer_creation_result);
-	if (renderer_creation_result != RENDERER_ERROR_OK) {
-		fprintf(stderr, "Failed to create renderer, %s",
-			libtui_renderer_err_str(renderer_creation_result));
+	libtui_show_cursor();
+}
+
+void rerr(enum LIBTUI_RENDERER_ERR res)
+{
+	if (res != RENDERER_ERROR_OK) {
+		fprintf(stderr, "Error: %s\n", libtui_renderer_err_str(res));
+		cleanup();
 		exit(-1);
 	}
+}
 
-	enum LIBTUI_DRAW_ERR cc_res;
-	libtui_draw_clear_with_char(r, '_', &cc_res);
+void derr(enum LIBTUI_DRAW_ERR res)
+{
+	if (res != DRAW_ERROR_OK) {
+		fprintf(stderr, "Error: %s\n", libtui_draw_err_str(res));
+		exit(-2);
+	}
+}
+
+int main(int argc, char *argv[])
+{
+	atexit(cleanup);
+	struct libtui_renderer *r = NULL;
+	rerr(libtui_renderer_create(50, 22, &r));
+
+	derr(libtui_draw_clear_with_char(r, '_'));
 
 	size_t x = 0;
 	size_t y = 0;
@@ -41,16 +58,13 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		enum LIBTUI_DRAW_ERR d_res;
-		libtui_draw_single_char(r, 'F', x, y, &d_res);
-		enum LIBTUI_RENDERER_ERR r_res;
-		libtui_renderer_render(r, &r_res);
+		derr(libtui_draw_single_char(r, 'F', x, y));
+		rerr(libtui_renderer_render(r));
 	}
 
 	libtui_show_cursor();
 
-	enum LIBTUI_RENDERER_ERR res;
-	libtui_renderer_free(r, &res);
+	rerr(libtui_renderer_free(r));
 
 	return 0;
 }

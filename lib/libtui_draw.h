@@ -13,8 +13,8 @@ enum LIBTUI_DRAW_ERR {
 	DRAW_ERROR_OK = 0,
 	// The libtui_renderer* passed in as an argument is NULL
 	DRAW_ERROR_NULL_RENDERER,
-	// The function called libtui_buffer_set but it failed
-	DRAW_ERROR_BUFFER_SET_FAILED,
+	// The dimensions that were passed to the function were invalid
+	DRAW_ERROR_INVALID_DIMENSIONS,
 
 	// Count of errors
 	DRAW_ERROR_COUNT,
@@ -28,26 +28,24 @@ const char *libtui_draw_err_str(enum LIBTUI_DRAW_ERR err);
 /*
 * Clears the screen with the specified char.
 * example: if c == 'X': whole screen will be made up of 'X' chars.
-* Returns result of the function in enum LIBTUI_DRAW_ERR *result argument;
+* Return an enum LIBTUI_DRAW_ERR as the function result;
 */
-void libtui_draw_clear_with_char(struct libtui_renderer *renderer, const char c,
-				 enum LIBTUI_DRAW_ERR *result);
+enum LIBTUI_DRAW_ERR
+libtui_draw_clear_with_char(struct libtui_renderer *renderer, const char c);
 
 /*
 * Clears the screen.
 * Detailed Explanation: Clears the screen with ' '.
-* Uses the libtui_draw_clear_with function underhood.
-* Returns result of the function in enum LIBTUI_DRAW_ERR *result argument;
+* Returns an enum LIBTUI_DRAW_ERR as the function result;
 */
-void libtui_draw_clear(struct libtui_renderer *renderer,
-		       enum LIBTUI_DRAW_ERR *result);
+enum LIBTUI_DRAW_ERR libtui_draw_clear(struct libtui_renderer *renderer);
 
 /*
 * Draws a single char at the specified (x, y).
 * The origin of the screen is top-left.
-* Returns result of the function in enum LIBTUI_DRAW_ERR *result argument;
+* Returns an enum LIBTUI_DRAW_ERR as the function result;
 */
-void libtui_draw_single_char(struct libtui_renderer *renderer, const char c,
-			     size_t x, size_t y, enum LIBTUI_DRAW_ERR *result);
+enum LIBTUI_DRAW_ERR libtui_draw_single_char(struct libtui_renderer *renderer,
+					     const char c, size_t x, size_t y);
 
 #endif

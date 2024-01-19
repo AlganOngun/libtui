@@ -15,10 +15,6 @@ enum LIBTUI_RENDERER_ERR {
 	RENDERER_ERROR_MALLOC_FAILED,
 	// The libtui_renderer* passed in as an argument is NULL
 	RENDERER_ERROR_NULL_RENDERER,
-	// libtui_buffer_create was called from the function but it failed. Check stderr for error message.
-	RENDERER_ERROR_BUFFER_CREATE_FAILED,
-	// libtui_buffer_free was called from the function but it failed. Check stderr for error message.
-	RENDERER_ERROR_BUFFER_FREE_FAILED,
 
 	// Total number of errors
 	RENDERER_ERROR_COUNT,
@@ -45,27 +41,26 @@ struct libtui_renderer {
 /*
 * Creates a new libtui_renderer.
 * Client must free the struct libtui_renderer with libtui_renderer_free.
-* Will Return NULL when something goes bad.
-* Returns result of the function in enum LIBTUI_RENDERER_ERR *result argument;
+* Returns the created renderer in struct libtui_renderer *const renderer_out parameter.
+* Returns an enum LIBTUI_RENDERER_ERR as the function result.
 */
-struct libtui_renderer *
+enum LIBTUI_RENDERER_ERR
 libtui_renderer_create(size_t width, size_t height,
-		       enum LIBTUI_RENDERER_ERR *result);
+		       struct libtui_renderer **renderer_out);
 
 /*
 * Renders the final buffer to the screen.
-* Returns result of the function in enum LIBTUI_RENDERER_ERR *result argument;
+* Returns an enum LIBTUI_RENDERER_ERR as the function result.
 */
-void libtui_renderer_render(struct libtui_renderer *renderer,
-			    enum LIBTUI_RENDERER_ERR *result);
+enum LIBTUI_RENDERER_ERR
+libtui_renderer_render(struct libtui_renderer *renderer);
 
 /*
-* Frees the renderer and the buf* b inside.
+* Frees the renderer completely
 * After calling this, don't use any pointer to the struct libtui_buffer or the char* inside because they will be
 * freed.
-* Returns result of the function in enum LIBTUI_RENDERER_ERR *result argument;
+* Returns an enum LIBTUI_RENDERER_ERR as the function result.
 */
-void libtui_renderer_free(struct libtui_renderer *renderer,
-			  enum LIBTUI_RENDERER_ERR *result);
+enum LIBTUI_RENDERER_ERR libtui_renderer_free(struct libtui_renderer *renderer);
 
 #endif
