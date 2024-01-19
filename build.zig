@@ -73,24 +73,24 @@ pub fn build(b: *std.Build) void {
     });
     targets.append(lib) catch @panic("OOM");
 
-    const client_exe = b.addExecutable(.{
-        .name = "client",
-        .root_source_file = .{ .path = "client/main.c" },
+    const example_exe = b.addExecutable(.{
+        .name = "example",
+        .root_source_file = .{ .path = "examples/simple.c" },
         .target = target,
         .optimize = optimize,
     });
 
-    client_exe.addIncludePath(.{
+    example_exe.addIncludePath(.{
         .path = "lib",
     });
-    client_exe.linkLibC();
-    client_exe.linkLibrary(lib);
+    example_exe.linkLibC();
+    example_exe.linkLibrary(lib);
 
-    targets.append(client_exe) catch @panic("OOM");
+    targets.append(example_exe) catch @panic("OOM");
 
-    b.installArtifact(client_exe);
+    b.installArtifact(example_exe);
 
-    const run_cmd = b.addRunArtifact(client_exe);
+    const run_cmd = b.addRunArtifact(example_exe);
 
     run_cmd.step.dependOn(b.getInstallStep());
 
