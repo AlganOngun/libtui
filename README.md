@@ -13,7 +13,7 @@ sudo pacman -S zig
 ```bash
 mkdir libtui-build
 cd libtui-build
-mv Downloads/libtui-x.x.x-release-special-source.zip .
+mv ~/Downloads/libtui-x.x.x-release-special-source.zip .
 unzip libtui-x.x.x-release-special-source.zip
 ```
 - Finally build it:
