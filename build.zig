@@ -1,5 +1,4 @@
 const std = @import("std");
-const zcc = @import("compile_commands");
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
@@ -93,8 +92,6 @@ pub fn build(b: *std.Build) void {
     const run_cmd = b.addRunArtifact(example_exe);
 
     run_cmd.step.dependOn(b.getInstallStep());
-
-    zcc.createStep(b, "cdb", targets.toOwnedSlice() catch @panic("OOM"));
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
