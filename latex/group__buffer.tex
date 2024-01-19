@@ -1,0 +1,135 @@
+\doxysection{Buffer}
+\hypertarget{group__buffer}{}\label{group__buffer}\index{Buffer@{Buffer}}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{libtui__buffer_8h}{libtui\+\_\+buffer.\+h}}
+\begin{DoxyCompactList}\small\item\em A readadble and writable 2D mapped buffer in the heap. WARNING\+: Internal, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}}
+\begin{DoxyCompactList}\small\item\em A struct that represents a 2D buffer. WARNING\+: Internal struct, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__buffer_ga1ed82139e34b2fd7b3ecf5f1089128af}{libtui\+\_\+buffer\+\_\+create}} (size\+\_\+t column, size\+\_\+t row)
+\begin{DoxyCompactList}\small\item\em Allocates and returns owned pointer to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} struct. WARNING\+: Internal function, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{group__buffer_ga8fa9792983b1ea9e1bcb58a46fc5d078}{libtui\+\_\+buffer\+\_\+get\+\_\+index}} (const struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}const buf, size\+\_\+t x, size\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em Gets x, y positions and maps them according to the buf which is 1-\/Dimensional. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__buffer_gab4f212e0e92ec11a25e3d1d0f7d0453d}{libtui\+\_\+buffer\+\_\+set}} (struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}const buf, const char c, size\+\_\+t x, size\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em Sets the char at a specific position. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{group__buffer_gac4f2e049acf24feeefc69c492f12f0ee}{libtui\+\_\+buffer\+\_\+get}} (const struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}const buf, size\+\_\+t x, size\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em Gets the char at a specific location. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__buffer_ga3a237b984c2310b296284826a28e22c9}{libtui\+\_\+buffer\+\_\+free}} (struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}buf)
+\begin{DoxyCompactList}\small\item\em Frees the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} and the buffer inside it. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All the things aobut the \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} and the buffer module 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__buffer_ga1ed82139e34b2fd7b3ecf5f1089128af}\label{group__buffer_ga1ed82139e34b2fd7b3ecf5f1089128af} 
+\index{Buffer@{Buffer}!libtui\_buffer\_create@{libtui\_buffer\_create}}
+\index{libtui\_buffer\_create@{libtui\_buffer\_create}!Buffer@{Buffer}}
+\doxysubsubsection{\texorpdfstring{libtui\_buffer\_create()}{libtui\_buffer\_create()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*} libtui\+\_\+buffer\+\_\+create (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{column,  }\item[{size\+\_\+t}]{row }\end{DoxyParamCaption})}
+
+
+
+Allocates and returns owned pointer to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} struct. WARNING\+: Internal function, end user shouldn\textquotesingle{}t use this. 
+
+\begin{DoxyReturn}{Returns}
+Returns an strcut \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} which the caller is responsible to free using void void \doxylink{group__buffer_ga3a237b984c2310b296284826a28e22c9}{libtui\+\_\+buffer\+\_\+free(struct libtui\+\_\+buffer \texorpdfstring{$\ast$}{*}buf)}. Will return NULL if malloc fails.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em column} & The amount of chars it stores in the X axis. Must be bigger than 0 \\
+\hline
+{\em row} & The amount of chars it stores in the Y axis. Must be bigger than 0 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__buffer_ga3a237b984c2310b296284826a28e22c9}\label{group__buffer_ga3a237b984c2310b296284826a28e22c9} 
+\index{Buffer@{Buffer}!libtui\_buffer\_free@{libtui\_buffer\_free}}
+\index{libtui\_buffer\_free@{libtui\_buffer\_free}!Buffer@{Buffer}}
+\doxysubsubsection{\texorpdfstring{libtui\_buffer\_free()}{libtui\_buffer\_free()}}
+{\footnotesize\ttfamily void libtui\+\_\+buffer\+\_\+free (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}}]{buf }\end{DoxyParamCaption})}
+
+
+
+Frees the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} and the buffer inside it. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. 
+
+Must be called by the caller. Dont\textquotesingle{}t use any pointers to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} neither the char\texorpdfstring{$\ast$}{*} buf inside it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & The pointer to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} that was created with struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} \texorpdfstring{$\ast$}{*}libtui\+\_\+buffer\+\_\+create(size\+\_\+t column, size\+\_\+t row). This function will neither modify the pointer or the struct. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__buffer_gac4f2e049acf24feeefc69c492f12f0ee}\label{group__buffer_gac4f2e049acf24feeefc69c492f12f0ee} 
+\index{Buffer@{Buffer}!libtui\_buffer\_get@{libtui\_buffer\_get}}
+\index{libtui\_buffer\_get@{libtui\_buffer\_get}!Buffer@{Buffer}}
+\doxysubsubsection{\texorpdfstring{libtui\_buffer\_get()}{libtui\_buffer\_get()}}
+{\footnotesize\ttfamily char libtui\+\_\+buffer\+\_\+get (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}const}]{buf,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Gets the char at a specific location. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. 
+
+The origin is top-\/left. \begin{DoxyReturn}{Returns}
+Returns the char at given position. Will return \textquotesingle{}\textbackslash{}0\textquotesingle{} in case of an error.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & The pointer to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} that was created with struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} \texorpdfstring{$\ast$}{*}libtui\+\_\+buffer\+\_\+create(size\+\_\+t column, size\+\_\+t row). This function will neither modify the pointer or the struct. \\
+\hline
+{\em x} & The x position of the wanted char. \\
+\hline
+{\em y} & The y position of the wanted char. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__buffer_ga8fa9792983b1ea9e1bcb58a46fc5d078}\label{group__buffer_ga8fa9792983b1ea9e1bcb58a46fc5d078} 
+\index{Buffer@{Buffer}!libtui\_buffer\_get\_index@{libtui\_buffer\_get\_index}}
+\index{libtui\_buffer\_get\_index@{libtui\_buffer\_get\_index}!Buffer@{Buffer}}
+\doxysubsubsection{\texorpdfstring{libtui\_buffer\_get\_index()}{libtui\_buffer\_get\_index()}}
+{\footnotesize\ttfamily size\+\_\+t libtui\+\_\+buffer\+\_\+get\+\_\+index (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}const}]{buf,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Gets x, y positions and maps them according to the buf which is 1-\/Dimensional. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. 
+
+\begin{DoxyReturn}{Returns}
+Returns the corresponding index in 1-\/Dimensional buffer. Returns 0 (origin) when something goes bad.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & The pointer to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} that was created with struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} \texorpdfstring{$\ast$}{*}libtui\+\_\+buffer\+\_\+create(size\+\_\+t column, size\+\_\+t row). This function will neither modify the pointer or the struct. \\
+\hline
+{\em x} & The x position of the wanted char. \\
+\hline
+{\em y} & The y position of the wanted char. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__buffer_gab4f212e0e92ec11a25e3d1d0f7d0453d}\label{group__buffer_gab4f212e0e92ec11a25e3d1d0f7d0453d} 
+\index{Buffer@{Buffer}!libtui\_buffer\_set@{libtui\_buffer\_set}}
+\index{libtui\_buffer\_set@{libtui\_buffer\_set}!Buffer@{Buffer}}
+\doxysubsubsection{\texorpdfstring{libtui\_buffer\_set()}{libtui\_buffer\_set()}}
+{\footnotesize\ttfamily void libtui\+\_\+buffer\+\_\+set (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*}const}]{buf,  }\item[{const char}]{c,  }\item[{size\+\_\+t}]{x,  }\item[{size\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+Sets the char at a specific position. WARNING\+: Internal Funcion, end user shouldn\textquotesingle{}t use this. 
+
+The origin is top-\/left.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & The pointer to the struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} that was created with struct \doxylink{structlibtui__buffer}{libtui\+\_\+buffer} \texorpdfstring{$\ast$}{*}libtui\+\_\+buffer\+\_\+create(size\+\_\+t column, size\+\_\+t row). This function will modify the struct passed but it won\textquotesingle{}t modify the pointer. \\
+\hline
+{\em c} & The char value, the char at the given position will be setted. \\
+\hline
+{\em x} & The x position of the char that should be setted. \\
+\hline
+{\em y} & The y position of the char that should be setted. \\
+\hline
+\end{DoxyParams}

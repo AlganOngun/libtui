@@ -27,20 +27,21 @@ defer:
 	return NULL;
 }
 
-size_t libtui_buffer_get_index(const struct libtui_buffer *buf, size_t x,
+size_t libtui_buffer_get_index(const struct libtui_buffer *const buf, size_t x,
 			       size_t y)
 {
 	return buf->columns * y + x;
 }
 
-void libtui_buffer_set(struct libtui_buffer *buf, const char c, size_t x,
+void libtui_buffer_set(struct libtui_buffer *const buf, const char c, size_t x,
 		       size_t y)
 {
 	const size_t i = libtui_buffer_get_index(buf, x, y);
 	buf->buf[i] = c;
 }
 
-char libtui_buffer_get(const struct libtui_buffer *buf, size_t x, size_t y)
+char libtui_buffer_get(const struct libtui_buffer *const buf, size_t x,
+		       size_t y)
 {
 	const size_t i = libtui_buffer_get_index(buf, x, y);
 

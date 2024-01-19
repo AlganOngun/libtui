@@ -27,7 +27,8 @@ const char *libtui_draw_err_str(enum LIBTUI_DRAW_ERR err)
 	} while (0);
 
 enum LIBTUI_DRAW_ERR
-libtui_draw_clear_with_char(struct libtui_renderer *renderer, const char c)
+libtui_draw_clear_with_char(struct libtui_renderer *const renderer,
+			    const char c)
 {
 	enum LIBTUI_DRAW_ERR result = DRAW_ERROR_OK;
 	if (renderer == NULL)
@@ -45,7 +46,7 @@ defer:
 	return result;
 }
 
-enum LIBTUI_DRAW_ERR libtui_draw_clear(struct libtui_renderer *renderer)
+enum LIBTUI_DRAW_ERR libtui_draw_clear(struct libtui_renderer *const renderer)
 {
 	enum LIBTUI_DRAW_ERR result = DRAW_ERROR_OK;
 
@@ -56,8 +57,9 @@ enum LIBTUI_DRAW_ERR libtui_draw_clear(struct libtui_renderer *renderer)
 	return result;
 }
 
-enum LIBTUI_DRAW_ERR libtui_draw_single_char(struct libtui_renderer *renderer,
-					     const char c, size_t x, size_t y)
+enum LIBTUI_DRAW_ERR
+libtui_draw_single_char(struct libtui_renderer *const renderer, const char c,
+			size_t x, size_t y)
 {
 	enum LIBTUI_DRAW_ERR result = DRAW_ERROR_OK;
 	if (renderer == NULL)

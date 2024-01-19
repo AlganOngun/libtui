@@ -1,0 +1,35 @@
+\doxysection{libtui\+\_\+draw.\+h}
+\hypertarget{libtui__draw_8h_source}{}\label{libtui__draw_8h_source}\index{lib/libtui\_draw.h@{lib/libtui\_draw.h}}
+\mbox{\hyperlink{libtui__draw_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LIBTUI\_DRAW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LIBTUI\_DRAW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlibtui__renderer}{libtui\_renderer}};}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__draw_gae1b2c04e9a8e0a3079823656a2393077}{LIBTUI\_DRAW\_ERR}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{group__draw_ggae1b2c04e9a8e0a3079823656a2393077a2a2cd3a725d1b981cabd2135326cac5a}{DRAW\_ERROR\_OK}}\ =\ 0,}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{group__draw_ggae1b2c04e9a8e0a3079823656a2393077a69cef2dc660053acf0054d338d72f3ea}{DRAW\_ERROR\_NULL\_RENDERER}},}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{group__draw_ggae1b2c04e9a8e0a3079823656a2393077a88651ff84b8988cf0618445c928a7ce2}{DRAW\_ERROR\_INVALID\_DIMENSIONS}},}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{group__draw_ggae1b2c04e9a8e0a3079823656a2393077afd185270d1922b52ead0926d731d764b}{DRAW\_ERROR\_COUNT}},}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{group__draw_ga4141545ea4b04bbb6d58f32b29631304}{libtui\_draw\_err\_str}}(\textcolor{keyword}{enum}\ \mbox{\hyperlink{group__draw_gae1b2c04e9a8e0a3079823656a2393077}{LIBTUI\_DRAW\_ERR}}\ err);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__draw_gae1b2c04e9a8e0a3079823656a2393077}{LIBTUI\_DRAW\_ERR}}}
+\DoxyCodeLine{00050\ \mbox{\hyperlink{group__draw_ga45e0a297729c5cd9227aa6ff326ef827}{libtui\_draw\_clear\_with\_char}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structlibtui__renderer}{libtui\_renderer}}\ *\textcolor{keyword}{const}\ renderer,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__draw_gae1b2c04e9a8e0a3079823656a2393077}{LIBTUI\_DRAW\_ERR}}\ \mbox{\hyperlink{group__draw_gaa73039ced251af7910c677f0b113847c}{libtui\_draw\_clear}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structlibtui__renderer}{libtui\_renderer}}\ *\textcolor{keyword}{const}\ renderer);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__draw_gae1b2c04e9a8e0a3079823656a2393077}{LIBTUI\_DRAW\_ERR}}}
+\DoxyCodeLine{00077\ \mbox{\hyperlink{group__draw_gabb66bed6d9acdcd71e5008493b48e76c}{libtui\_draw\_single\_char}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structlibtui__renderer}{libtui\_renderer}}\ *\textcolor{keyword}{const}\ renderer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ c,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ x,\ \textcolor{keywordtype}{size\_t}\ y);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

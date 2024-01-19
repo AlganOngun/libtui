@@ -1,0 +1,38 @@
+\doxysection{libtui\+\_\+renderer Struct Reference}
+\hypertarget{structlibtui__renderer}{}\label{structlibtui__renderer}\index{libtui\_renderer@{libtui\_renderer}}
+
+
+Struct that holds data used by therendering module.  
+
+
+
+
+{\ttfamily \#include $<$libtui\+\_\+renderer.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structlibtui__renderer_a74c19eb0a7b584c8dea2671ca149b634}\label{structlibtui__renderer_a74c19eb0a7b584c8dea2671ca149b634} 
+struct \mbox{\hyperlink{structlibtui__buffer}{libtui\+\_\+buffer}} \texorpdfstring{$\ast$}{*} {\bfseries buf}
+\begin{DoxyCompactList}\small\item\em Owned and will be freed together with struct \doxylink{structlibtui__renderer}{libtui\+\_\+renderer} at libtui\+\_\+renderer\+\_\+free. \end{DoxyCompactList}\item 
+\Hypertarget{structlibtui__renderer_aa2b56eae802da70aa5b08d26595f6ab8}\label{structlibtui__renderer_aa2b56eae802da70aa5b08d26595f6ab8} 
+size\+\_\+t {\bfseries rows}
+\begin{DoxyCompactList}\small\item\em The amount of chars in the X axis on screen doesn\textquotesingle{}t include \textquotesingle{}~\newline
+\textquotesingle{} and such control chars. \end{DoxyCompactList}\item 
+\Hypertarget{structlibtui__renderer_aca8f2af2e4a18cf966d51dfc7429f71a}\label{structlibtui__renderer_aca8f2af2e4a18cf966d51dfc7429f71a} 
+size\+\_\+t {\bfseries columns}
+\begin{DoxyCompactList}\small\item\em The amount of chars in the Y axis on screen doesn\textquotesingle{}t include \textquotesingle{}~\newline
+\textquotesingle{} and such control chars. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct that holds data used by therendering module. 
+
+Create this struct with libtui\+\_\+renderer\+\_\+create. Don\textquotesingle{}t try creating it manually. Client must free an instance using libtui\+\_\+renderer\+\_\+free. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{simple_8c-example}{simple.\+c}}.\end{Desc}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\mbox{\hyperlink{libtui__renderer_8h}{libtui\+\_\+renderer.\+h}}\end{DoxyCompactItemize}

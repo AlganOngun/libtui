@@ -31,7 +31,7 @@ const char *libtui_renderer_err_str(enum LIBTUI_RENDERER_ERR err)
 
 enum LIBTUI_RENDERER_ERR
 libtui_renderer_create(size_t width, size_t height,
-		       struct libtui_renderer **renderer_out)
+		       struct libtui_renderer **const renderer_out)
 {
 	enum LIBTUI_RENDERER_ERR result = RENDERER_ERROR_OK;
 	struct libtui_renderer *r;
@@ -55,7 +55,7 @@ defer:
 }
 
 enum LIBTUI_RENDERER_ERR
-libtui_renderer_render(struct libtui_renderer *renderer)
+libtui_renderer_render(struct libtui_renderer *const renderer)
 {
 	enum LIBTUI_RENDERER_ERR result = RENDERER_ERROR_OK;
 	if (renderer == NULL)

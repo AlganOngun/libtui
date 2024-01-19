@@ -1,0 +1,44 @@
+\doxysection{Term Control}
+\hypertarget{group__libtui__term__control}{}\label{group__libtui__term__control}\index{Term Control@{Term Control}}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{libtui__term__control_8h}{libtui\+\_\+term\+\_\+control.\+h}}
+\begin{DoxyCompactList}\small\item\em The group of functions that provide a nice interface for the client to work with terminal settings. Handles all the platform dependent dirty stuff and makes it easy for user to work with. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__libtui__term__control_ga9bd042e75e2a2174c7984774b073cbef}{libtui\+\_\+hide\+\_\+cursor}} (void)
+\begin{DoxyCompactList}\small\item\em Hides the cursor of the terminal. \end{DoxyCompactList}\item 
+\Hypertarget{group__libtui__term__control_ga5a2bc54454c3cb934f251d86e5e0abd4}\label{group__libtui__term__control_ga5a2bc54454c3cb934f251d86e5e0abd4} 
+void {\bfseries libtui\+\_\+show\+\_\+cursor} (void)
+\begin{DoxyCompactList}\small\item\em Shows the cursor of the terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__libtui__term__control_ga352825fdefe832d35e839b8dbe65c32c}{libtui\+\_\+true\+\_\+clear}} (void)
+\begin{DoxyCompactList}\small\item\em Truly clears the console independent from all the buffer stuff. Uses\+: system("{}clear"{});. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All the things about the term\+\_\+control module 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group__libtui__term__control_ga9bd042e75e2a2174c7984774b073cbef}\label{group__libtui__term__control_ga9bd042e75e2a2174c7984774b073cbef} 
+\index{Term Control@{Term Control}!libtui\_hide\_cursor@{libtui\_hide\_cursor}}
+\index{libtui\_hide\_cursor@{libtui\_hide\_cursor}!Term Control@{Term Control}}
+\doxysubsubsection{\texorpdfstring{libtui\_hide\_cursor()}{libtui\_hide\_cursor()}}
+{\footnotesize\ttfamily void libtui\+\_\+hide\+\_\+cursor (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Hides the cursor of the terminal. 
+
+Make sure to call libtui\+\_\+enable\+\_\+cursor() before exiting your program. \Hypertarget{group__libtui__term__control_ga352825fdefe832d35e839b8dbe65c32c}\label{group__libtui__term__control_ga352825fdefe832d35e839b8dbe65c32c} 
+\index{Term Control@{Term Control}!libtui\_true\_clear@{libtui\_true\_clear}}
+\index{libtui\_true\_clear@{libtui\_true\_clear}!Term Control@{Term Control}}
+\doxysubsubsection{\texorpdfstring{libtui\_true\_clear()}{libtui\_true\_clear()}}
+{\footnotesize\ttfamily void libtui\+\_\+true\+\_\+clear (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Truly clears the console independent from all the buffer stuff. Uses\+: system("{}clear"{});. 
+
+Only reasonable use case for this function is calling it in the beginning of your program to clear everthing that has been written to terminal thus, giving your program a completely empty space to draw to. 
